@@ -1,0 +1,9 @@
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.boot: INFO
+    org.springframework.security: INFO
+jwt:
+  secret: tPlTexeytXJqkOxAAzI67ASkZo3vrGeXT9jccPj1aMdckGajyXWDp9QVoFiTRWKClwbWUMO3emPYwm_C6JOdyg
+  accessTokenExpirationInSeconds: 600        #10 minutes
+  refreshTokenExpirationInSeconds: 2592000   #1 month
