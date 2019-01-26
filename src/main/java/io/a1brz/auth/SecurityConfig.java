@@ -2,7 +2,6 @@ package io.a1brz.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -31,13 +30,9 @@ class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .csrf().disable()
                 .authenticationManager(authManager)
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/authenticate").permitAll()
                 .pathMatchers("/register").permitAll()
                 .pathMatchers("/token/refresh").permitAll()
