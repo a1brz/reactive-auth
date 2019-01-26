@@ -33,9 +33,7 @@ class SecurityConfig {
                 .authenticationManager(authManager)
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
-                .pathMatchers("/authenticate").permitAll()
-                .pathMatchers("/register").permitAll()
-                .pathMatchers("/token/refresh").permitAll()
+                .pathMatchers("/authenticate", "/register", "/token/refresh").permitAll()
                 .anyExchange().authenticated()
                 .and().build();
     }
