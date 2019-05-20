@@ -1,5 +1,6 @@
 package io.a1brz.auth;
 
+import io.a1brz.auth.UserRepository.User.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ class AuthServiceImpl implements AuthService {
                         .firstName(request.getFirstName())
                         .lastName(request.getLastName())
                         .email(request.getEmail())
-                        .roles(Collections.singletonList(UserRepository.User.Role.USER))
+                        .roles(Collections.singletonList(Role.USER))
                         .enabled(Boolean.TRUE)
                         .build())
                 .flatMap(userRepository::save)

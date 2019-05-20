@@ -3,7 +3,6 @@ package io.a1brz.auth;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +29,7 @@ public class ResourceController {
         return Mono.just(ResponseEntity.ok("Content for user or admin"));
     }
 
-    @GetMapping(value = "resource/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @RequestMapping(value = "resource/stream", method = RequestMethod.GET, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @PreAuthorize("hasRole('USER')")
     public Flux<Integer> streamData() {
         return Flux.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);

@@ -1,5 +1,6 @@
 package io.a1brz.auth;
 
+import io.a1brz.auth.UserRepository.User.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +24,8 @@ class AuthManager implements ReactiveAuthenticationManager {
                 .filterWhen(tokenService::validateAccessToken)
                 .flatMap(accessToken -> tokenService.extractUserId(accessToken)
                         .flatMap(userId -> tokenService.extractRoles(accessToken)
-                                .map(UserRepository.User.Role::valueOf)
-                                .map(UserRepository.User.Role::authority)
+                                .map(Role::valueOf)
+                                .map(Role::authority)
                                 .map(SimpleGrantedAuthority::new)
                                 .collectList()
                                 .map(authorities -> new UsernamePasswordAuthenticationToken(userId, null, authorities))));
