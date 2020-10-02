@@ -1,9 +1,5 @@
 package io.a1brz.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import reactor.core.publisher.Mono;
 
 public interface TokenRepository {
@@ -14,14 +10,39 @@ public interface TokenRepository {
 
     Mono<RefreshToken> update(RefreshToken token);
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
     class RefreshToken {
         private String token;
         private String userId;
-        @Builder.Default
-        private boolean isActive = Boolean.TRUE;
+        private boolean isActive;
+
+        public RefreshToken(String token, String userId, boolean isActive) {
+            this.token = token;
+            this.userId = userId;
+            this.isActive = isActive;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public boolean isActive() {
+            return isActive;
+        }
+
+        public void setActive(boolean active) {
+            isActive = active;
+        }
     }
 }

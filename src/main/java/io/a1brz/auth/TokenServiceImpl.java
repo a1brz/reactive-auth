@@ -55,10 +55,7 @@ public class TokenServiceImpl implements TokenService {
                         .withIssuedAt(Date.from(creationDate))
                         .withExpiresAt(Date.from(creationDate.plusSeconds(refreshTokenExpirationInSeconds)))
                         .sign(algorithm))
-                .map(token -> TokenRepository.RefreshToken.builder()
-                        .userId(userId)
-                        .token(token)
-                        .build())
+                .map(token -> new TokenRepository.RefreshToken(token, userId, Boolean.TRUE))
                 .flatMap(tokenRepository::save)
                 .map(TokenRepository.RefreshToken::getToken);
     }

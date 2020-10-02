@@ -24,9 +24,7 @@ class AuthManager implements ReactiveAuthenticationManager {
                 .filterWhen(tokenService::validateAccessToken)
                 .flatMap(accessToken -> tokenService.extractUserId(accessToken)
                         .flatMap(userId -> tokenService.extractRoles(accessToken)
-                                .map(Role::valueOf)
-                                .map(Role::authority)
-                                .map(SimpleGrantedAuthority::new)
+                                .map(role -> new SimpleGrantedAuthority(Role.valueOf(role).authority()))
                                 .collectList()
                                 .map(authorities -> new UsernamePasswordAuthenticationToken(userId, null, authorities))));
     }
